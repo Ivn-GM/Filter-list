@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./index.css";
 
-function App() {
+export default function App() {
+  const array = ["banana", "cherry", "pear", "apple", "orange", "mango"];
+
+  const [search, setSearch] = useState("");
+
+  const onChange = (e) => {
+    const searchFruit = e.target.value;
+    setSearch(searchFruit);
+  }
+
+  const filtering = array.filter((fruit) => fruit.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form>
+        <input onChange={onChange} ></input>
+      </form>
+      <div>
+      {search ? filtering.map(fruit => <p>{fruit}</p>) : array.map((fruit) => <p>{fruit}</p>)}
+      </div>
     </div>
   );
 }
 
-export default App;
